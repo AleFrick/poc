@@ -31,7 +31,7 @@ export default function Buscar(props){
         setDescricao('')
         setExiste('')
     }    
-    
+
     function notificacao(message, type){        
         if(message.trim !== ''){
             switch (type) {
@@ -54,8 +54,8 @@ export default function Buscar(props){
             <div className='CamposBusca'>
             <h1>{props.descricao}</h1>
             <Edit label='Nome'  descricao={descricao} valor={descricao} change={ e => setDescricao(e.target.value)} />    
-            <Button name="Buscar"  click={e => VerificarNome(descricao)}/>    
-            <Button name="Cancelar"  click={ e => Cancelar()} />                                                  
+            <Button name="Buscar"  color="primary" click={e => VerificarNome(descricao)}/>    
+            <Button name="Cancelar" color="danger"  click={ e => Cancelar()} />                                                  
             </div> 
             <div className='CampoResultado'>
                 
