@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import api from '../../api';
 import Button from '../Button/Button'
+import { ToastContainer, toast } from 'react-toastify'; 
 import Edit from '../Edit/Edit'
 
 import './Buscar.css'
@@ -15,11 +16,10 @@ export default function Buscar(props){
             api.get(`/verificanome/` + descricao)
             .then(function(response){
                 if(response.data){
-                    setExiste('Achou')
+                    notificacao('Achou', 'success')
                 }else{
-                    setExiste('Não Achou')
-                }
-                
+                    notificacao('Não achou', 'warn')
+                }                
             })
             .catch(function(error){
                 console.log(error)
@@ -31,7 +31,24 @@ export default function Buscar(props){
         setDescricao('')
         setExiste('')
     }    
-
+    
+    function notificacao(message, type){        
+        if(message.trim !== ''){
+            switch (type) {
+                case 'success':
+                    toast.success(message);
+                    break;
+                case 'warn':
+                    toast.warn(message);
+                    break;
+                case 'error':
+                    toast.error(message);
+                    break;
+                default:
+                    toast.info(message);
+            }
+        }
+    }    
     return(
         <div>
             <div className='CamposBusca'>
@@ -41,13 +58,9 @@ export default function Buscar(props){
             <Button name="Cancelar"  click={ e => Cancelar()} />                                                  
             </div> 
             <div className='CampoResultado'>
-                <h3>
-                    {existe}
-                </h3>
-            </div>
-            
-            
-            
+                
+            </div>                      
+            <ToastContainer />            
         </div>          
     )
 }

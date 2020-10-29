@@ -1,12 +1,4 @@
-.button {
-    font-size: 1.2rem;    
-    border: none;    
-    outline: none;   
-    grid-column:  span 2;
+.editBtn {    
     margin-top: 10px;
     margin-right: 10px;
-}
-
-.button:active {
-    background-color: #ccc;
 }
