@@ -6,7 +6,7 @@ export default function Grid(props){
     if(props.obj.cod_diploma !== ''){
         return(        
             <div>
-                <Table >
+                <Table style={{marginRight:'100px'}} >
                     <thead>
                         <tr>
                             <th>#</th>
