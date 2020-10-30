@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Col, Row } from 'reactstrap'
 import api from '../../api';
 import Button from '../Button/Button'
 import { ToastContainer, toast } from 'react-toastify'; 
@@ -19,14 +20,20 @@ export default function Buscar(props){
                 let obj = response.data.dados
                 setDados(obj)                           
                 if(response.data.retorno){
-                    notificacao('Achou', 'success')
+                    //notificacao('Diploma Encontrado', 'success')
                 }else{
-                    notificacao('Não achou', 'warn')
+                    notificacao('Diploma não encontrado.', 'warn')
                 }                
             })
             .catch(function(error){
                 notificacao(error, 'error')
             })       
+        }
+    }
+
+    function verifica(e){
+        if(e.key === 'Enter'){
+            BuscarDiploma()
         }
     }
 
@@ -53,10 +60,15 @@ export default function Buscar(props){
         }
     }    
     return(
-        <div>
-            <div className='CamposBusca'>
-            <h1>{props.descricao}</h1>
-            <Edit label='Código'  holder='Informe o código' descricao={descricao} valor={descricao} change={ e => setDescricao(e.target.value)} />    
+        /*<div>
+            <h1 className="titulo">{props.descricao}</h1>            
+            <div className='CamposBusca'>            
+            <Edit label='Código'  holder='Informe o código' 
+                descricao={descricao} valor={descricao} 
+                press={ e => verifica(e)} 
+                change={ e => setDescricao(e.target.value)} 
+            />    
+
             <Button name="Buscar"  color="primary" click={e => BuscarDiploma(descricao)}/>    
             <Button name="Cancelar" color="danger"  click={ e => limpar()} />                                                  
             </div> 
@@ -66,7 +78,32 @@ export default function Buscar(props){
                 }
             </div>                      
             <ToastContainer />            
-        </div>          
+        </div>          */
+        <div>
+            <h1 className="titulo">{props.descricao}</h1>   
+            <br />         
+            <Row>
+                <Col sm='3'>
+                    <Edit label='Código'  holder='Informe o código' 
+                        descricao={descricao} valor={descricao} 
+                        press={ e => verifica(e)} 
+                        change={ e => setDescricao(e.target.value)} 
+                        style={{width:'100%'}}
+                    /> 
+                    <Button name="Buscar"  style={{width:'50%'}} color="primary" click={e => BuscarDiploma(descricao)}/>    
+                    <Button name="Cancelar" style={{width:'50%'}} color="danger"  click={ e => limpar()} />                                                              
+                </Col>
+                <Col sm='9'>
+                    { 
+                        dados !== '' && <Grid obj={dados} /> 
+                    }
+                </Col>
+            </Row>
+            <ToastContainer />  
+        </div>
+
+
+
     )
 }
 

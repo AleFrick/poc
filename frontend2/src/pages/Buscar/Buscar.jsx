@@ -8,6 +8,7 @@ export default function PaginaBuscar(){
    return(
     <div >
         <Menu />
+        
         <div className="main">
             <div style={{marginLeft:'30px'}} >
                 <Buscar descricao='Buscar Diploma' />
