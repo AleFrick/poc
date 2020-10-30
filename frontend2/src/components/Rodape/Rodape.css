@@ -1,0 +1,8 @@
+div.pgRodape {
+    position: absolute;
+    bottom: 0;
+    background-color: #111;
+    color: #FFF;
+    width: 100%;    
+    text-align: center;        
+}

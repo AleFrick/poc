@@ -3,34 +3,37 @@ import api from '../../api';
 import Button from '../Button/Button'
 import { ToastContainer, toast } from 'react-toastify'; 
 import Edit from '../Edit/Edit'
+import Grid from '../Grid/Grid'
 
 import './Buscar.css'
 
 
 export default function Buscar(props){
-    const [descricao, setDescricao] = useState('');
-    const [existe, setExiste] = useState('');
+    const [descricao, setDescricao] = useState('');   
+    const [dados, setDados] = useState('')
 
-    async function VerificarNome(){
+    async function BuscarDiploma(){
         if(descricao.trim() !== ''){
-            api.get(`/verificanome/` + descricao)
-            .then(function(response){
-                if(response.data){
+            api.get(`/diploma/` + descricao)
+            .then(function(response){                
+                let obj = response.data.dados
+                setDados(obj)                           
+                if(response.data.retorno){
                     notificacao('Achou', 'success')
                 }else{
                     notificacao('Não achou', 'warn')
                 }                
             })
             .catch(function(error){
-                console.log(error)
+                notificacao(error, 'error')
             })       
         }
     }
 
-    function Cancelar(){
+    function limpar(){
         setDescricao('')
-        setExiste('')
-    }    
+        setDados('')        
+    }
 
     function notificacao(message, type){        
         if(message.trim !== ''){
@@ -53,12 +56,14 @@ export default function Buscar(props){
         <div>
             <div className='CamposBusca'>
             <h1>{props.descricao}</h1>
-            <Edit label='Nome'  descricao={descricao} valor={descricao} change={ e => setDescricao(e.target.value)} />    
-            <Button name="Buscar"  color="primary" click={e => VerificarNome(descricao)}/>    
-            <Button name="Cancelar" color="danger"  click={ e => Cancelar()} />                                                  
+            <Edit label='Código'  holder='Informe o código' descricao={descricao} valor={descricao} change={ e => setDescricao(e.target.value)} />    
+            <Button name="Buscar"  color="primary" click={e => BuscarDiploma(descricao)}/>    
+            <Button name="Cancelar" color="danger"  click={ e => limpar()} />                                                  
             </div> 
-            <div className='CampoResultado'>
-                
+            <div className='CampoResultado'>                                
+                { 
+                    dados !== '' && <Grid obj={dados}/> 
+                }
             </div>                      
             <ToastContainer />            
         </div>          
