@@ -13,15 +13,61 @@ app.listen(port, () => {
 });
 
 
-app.get('/verificanome/:nome', (req, res) => {
+app.get('/diploma/:codigo', (req, res) => {
     let retorno = false
-    var nomes = ['alex', 'sandro', 'frick', 'schmidt']
+    let codValido = [
+        '123456',
+        '123789',
+        '456789',
+        '456123',
+        '789456',
+        '789123'
+    ]
+    let nomes = [
+        'Carlos',
+        'Maria',
+        'Pedro',
+        'Luana',
+        'Thais',
+        'Lucas'
+    ]
+    let idade = [
+        '23',
+        '41',
+        '61',
+        '12',
+        '32',
+        '39'
+    ]
     
-    for (let i in nomes){
-        if(req.params.nome === nomes[i]){
+    let ie = [
+        'UFAC',
+        'UFT',
+        'UNIJUI',
+        'UNIPAMPA',
+        'UNICRUZ',
+        'UNISC'
+    ]
+
+    let obj = {
+            'nome':'',
+            'idade':'',
+            'cod_diploma':'',
+            'IE':'',
+            'POS':''
+    }
+    
+    retorno = false
+    for (let i in codValido){
+        if(req.params.codigo === codValido[i]){
             retorno = true
+            obj.nome = nomes[i]
+            obj.idade = idade[i]
+            obj.cod_diploma=codValido[i]
+            obj.POS = i
+            obj.ie = ie[i]
         }
     }
     
-    res.status(200).send(retorno)
+    res.status(200).send({retorno:retorno, dados:obj})
 });

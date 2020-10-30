@@ -5,7 +5,7 @@ export default function Menu(){
         <div>
             <div className="sidenav">
                 <a href="/">Home</a>
-                <a href="/buscar">Verificar</a>        
+                <a href="/buscar">Diploma</a>        
             </div>    
         </div>
     )
